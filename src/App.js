@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
   state = {
     persons: [
       { id: 1, name: 'Leo', age: 29 },
-      { id: 2, name: 'Danay', age: 32 }
+      { id: 2, name: 'Danay', age: 32 },
+      { id: 3, name: 'Buddy', age: 7 }
     ],
     showPersons: false,
   }
@@ -45,16 +46,9 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'green',
-      font: 'inherit',
-      color: 'white',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-    };
 
     let persons = null;
+    let btnClass = '';
 
     if (this.state.showPersons) {
       persons = (
@@ -70,15 +64,23 @@ class App extends Component {
           })}
         </div>
       );
-
-      style.backgroundColor = 'red'
+      btnClass = classes.Red;
     }
 
+    const assignedClasses = [];
+    if ( this.state.persons.length <= 2 ) {
+      assignedClasses.push( classes.red )
+    } 
+    if ( this.state.persons.length <= 1 ) {
+      assignedClasses.push( classes.bold )
+    } 
+
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>react app</h1>
+        <p className={assignedClasses.join( ' ' )}>testing testing 123...</p>
         <button
-          style={style}
+          className={btnClass}
           onClick={() => this.togglePersonHandler("Leon")}>Switch Name</button>
         {persons}
       </div >
